@@ -64,6 +64,8 @@
   @keyframes burst { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(14); } }
 
   .draw { margin-top: 8px; width: min(280px, 100%); height: 60px; border: 0; background: var(--accent); color: #fff; font: 700 17px/1 var(--sans); letter-spacing: -0.02em; cursor: pointer; transition: background .2s, transform .1s; }
+  /* 한글 폰트는 글자가 위로 쏠려 보여서 flex로 가운데 정렬 후 살짝 내림 */
+  .draw, .btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; padding: 4px 0 0; }
   .draw:hover { background: var(--accent-hot); }
   .draw:active { transform: translateY(1px); }
   .draw:disabled { background: #1c3558; color: #9fbde6; cursor: default; }
