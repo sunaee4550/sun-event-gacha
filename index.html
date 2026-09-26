@@ -6,8 +6,16 @@
 <title>랜덤 쿠폰 뽑기</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
 <style>
+  /* 영문·숫자는 지마켓 산스, 한글은 Noto Sans KR */
+  @font-face {
+    font-family: "Gmarket Sans Latin";
+    src: url("fonts/GmarketSansMedium-latin.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+    unicode-range: U+0020-007E, U+00B7, U+2014, U+2026;
+  }
   :root {
     color-scheme: dark;
     --bg: #08090c;
@@ -19,17 +27,17 @@
     --accent-hot: #45a3ff;
     --accent-deep: #0b5bc7;
     --silver: #cfcdd2;
-    --sans: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
-    --latin: "Archivo", "Noto Sans KR", system-ui, sans-serif;
+    --sans: "Gmarket Sans Latin", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+    --latin: "Gmarket Sans Latin", "Noto Sans KR", system-ui, sans-serif;
   }
   [hidden] { display: none !important; }
   html, body { background: var(--bg); color: var(--ink); }
-  body { font-family: var(--sans); padding-inline: 16px; }
+  body { font-family: var(--sans); padding-inline: 16px; letter-spacing: -0.01em; word-break: keep-all; }
   .wrap { max-width: 440px; margin: 0 auto; padding-block: 48px 64px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 
-  .eyebrow { font-family: var(--latin); font-weight: 800; font-size: 15px; letter-spacing: .06em; color: var(--accent); padding-bottom: 3px; border-bottom: 2px solid var(--accent); }
-  h1 { margin: 14px 0 0; font-size: clamp(32px, 9vw, 42px); font-weight: 900; letter-spacing: -0.03em; text-wrap: balance; }
-  .lede { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+  .eyebrow { font-family: var(--latin); font-weight: 800; font-size: 14px; letter-spacing: .04em; color: var(--accent); padding-bottom: 4px; border-bottom: 2px solid var(--accent); }
+  h1 { margin: 14px 0 0; font-size: clamp(32px, 9vw, 42px); font-weight: 900; letter-spacing: -0.04em; line-height: 1.2; text-wrap: balance; }
+  .lede { margin: 12px 0 0; color: var(--muted); font-size: 14px; line-height: 1.65; letter-spacing: -0.01em; }
 
   /* machine */
   .stage { position: relative; width: min(300px, 78vw); margin-top: 28px; padding-bottom: 40px; }
@@ -55,7 +63,7 @@
   .capsule.open .burst { animation: burst .6s ease-out forwards; }
   @keyframes burst { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(14); } }
 
-  .draw { margin-top: 8px; width: min(280px, 100%); height: 60px; border: 0; background: var(--accent); color: #fff; font: 700 17px/1 var(--sans); letter-spacing: -0.01em; cursor: pointer; transition: background .2s, transform .1s; }
+  .draw { margin-top: 8px; width: min(280px, 100%); height: 60px; border: 0; background: var(--accent); color: #fff; font: 700 17px/1 var(--sans); letter-spacing: -0.02em; cursor: pointer; transition: background .2s, transform .1s; }
   .draw:hover { background: var(--accent-hot); }
   .draw:active { transform: translateY(1px); }
   .draw:disabled { background: #1c3558; color: #9fbde6; cursor: default; }
@@ -81,18 +89,18 @@
   .result { width: min(360px, 100%); background: var(--panel); border: 1px solid var(--line); padding: 28px 22px 22px; text-align: center; animation: pop .45s cubic-bezier(.2,1.4,.4,1); }
   @keyframes pop { from { transform: scale(.85) translateY(20px); opacity: 0; } }
   .result .eyebrow { display: inline-block; }
-  .result h2 { margin: 12px 0 18px; font-size: 22px; font-weight: 900; letter-spacing: -0.02em; }
+  .result h2 { margin: 12px 0 18px; font-size: 22px; font-weight: 900; letter-spacing: -0.03em; }
 
   .ticket { position: relative; display: grid; grid-template-columns: 1fr auto; align-items: stretch; background: linear-gradient(135deg, var(--accent-hot), var(--accent) 50%, var(--accent-deep)); color: #fff; text-align: left; }
   .ticket::before, .ticket::after { content: ""; position: absolute; right: 88px; width: 18px; height: 18px; margin-right: -9px; border-radius: 50%; background: var(--panel); }
   .ticket::before { top: -9px; } .ticket::after { bottom: -9px; }
   .ticket .main { padding: 18px 16px 16px 18px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-  .ticket .amount { font-family: var(--latin); font-weight: 900; font-size: 52px; line-height: .95; letter-spacing: -0.03em; }
+  .ticket .amount { font-family: var(--latin); font-weight: 900; font-size: 50px; line-height: 1; letter-spacing: -0.02em; }
   .ticket .amount small { font-size: 26px; margin-left: 2px; }
   .ticket .name { font-weight: 700; font-size: 15px; }
   .ticket .cond { font-size: 12px; opacity: .85; }
   .ticket .stub { width: 88px; border-left: 2px dashed rgba(255,255,255,.55); display: grid; place-items: center; padding: 10px 6px; }
-  .ticket .stub span { writing-mode: vertical-rl; font-family: var(--latin); font-weight: 800; font-size: 13px; letter-spacing: .2em; }
+  .ticket .stub span { writing-mode: vertical-rl; font-family: var(--latin); font-weight: 800; font-size: 12px; letter-spacing: .14em; }
   .ticket.jackpot { background: linear-gradient(135deg, #fff1a8, #ffc93c 40%, #1a86f2); color: #0a1a33; }
   .ticket.lose { background: #262c38; color: var(--ink); }
   .ticket.lose .amount { font-family: var(--sans); font-size: 44px; }
@@ -100,7 +108,7 @@
   .ticket.jackpot .stub { border-left-color: rgba(10,26,51,.4); }
 
   .code { margin-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; background: #0b0d12; border: 1px dashed #34405a; }
-  .code span { font-family: var(--latin); font-weight: 600; font-size: 15px; letter-spacing: .08em; user-select: all; overflow-wrap: anywhere; text-align: left; }
+  .code span { font-family: var(--latin); font-weight: 600; font-size: 15px; letter-spacing: .04em; user-select: all; overflow-wrap: anywhere; text-align: left; }
   .code .copy { flex: none; background: transparent; border: 1px solid #3e4a60; color: var(--ink); font: 500 12px/1 var(--sans); padding: 8px 10px; cursor: pointer; }
   .meta { margin: 10px 0 0; color: var(--muted); font-size: 12px; }
   .actions { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
